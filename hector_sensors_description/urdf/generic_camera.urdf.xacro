@@ -42,7 +42,9 @@
   
     <link name="${name}_optical_frame"/>
     
-    <gazebo reference="${name}_link">
+
+     <gazebo reference="${name}_link">
+      <!-- <sensor type="camera" name="${name}_camera_sensor">-->
       <sensor type="camera" name="${name}_camera_sensor">
         <update_rate>${update_rate}</update_rate>
         <camera>
@@ -53,9 +55,15 @@
             <height>${res_y}</height>
           </image>
           <clip>
-            <near>0.01</near>
+            <near>0.1</near>
             <far>100</far>
           </clip>
+          <lens>
+            <type>gnomonical</type>
+            <scale_to_hfov>true</scale_to_hfov>
+            <cutoff_angle>1.5707</cutoff_angle>
+            <env_texture_size>512</env_texture_size>
+          </lens>
         </camera>
 
         <plugin name="${name}_camera_controller" filename="libgazebo_ros_camera.so">
@@ -65,7 +73,8 @@
           <frameName>${name}_optical_frame</frameName>
         </plugin>
       </sensor>
-    </gazebo>
+    </gazebo> 
+
   </xacro:macro>
 
 </robot>
